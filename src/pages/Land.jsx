@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import StarCanvas from "../component/StarCanvas";
+import StarCanvas from "../components/StarCanvas";
 import logo from "../assets/ReclipseLogo.png";
 import "../fonts.css";
 
@@ -223,5 +223,6 @@ const Land = () => {
     </div>
   );
 };
+
 
 export default Land;
