@@ -1,6 +1,6 @@
-import React, { useState, useRef, Suspense, useEffect } from "react";
+import React, { useState, useRef, Suspense } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { Points, PointMaterial, useTexture } from "@react-three/drei";
+import { Points, PointMaterial } from "@react-three/drei";
 import * as THREE from "three";
 
 // Generate random points in a sphere for stars
@@ -78,8 +78,8 @@ const generateGalaxySpiral = (count) => {
       y = (Math.random() - 0.5) * scaleHeight * Math.exp(-radius / 2);
       
       // Spiral arm colors (blue-white for young stars, yellow-red for older)
-      const distanceFromCenter = Math.sqrt(x * x + z * z);
-      const normalizedDistance = Math.min(distanceFromCenter / diskRadius, 1);
+      // const distanceFromCenter = Math.sqrt(x * x + z * z);
+      // const normalizedDistance = Math.min(distanceFromCenter / diskRadius, 1);
       
       // Mix of star colors based on position
       if (Math.random() < 0.3) {
