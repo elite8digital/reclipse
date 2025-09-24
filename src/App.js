@@ -1,6 +1,6 @@
 import React from "react";
 // import GridMotionAnimation from "./pages/GridMotionAnimation";
-// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // import ScrollStackAnimation from "./pages/ScrollStackAnimation";
 // import CircularGalleryAnimation from "./pages/CircularGalleryAnimation";
 // import FluidGlassAnimation from "./pages/FluidGlassAnimation";
@@ -49,3 +49,4 @@ const App = () => {
 };
 
 export default App;
+
