@@ -20,6 +20,7 @@ const Land: React.FC = () => {
   });
   
   const [showContent, setShowContent] = useState<boolean>(false);
+  const [contentReady, setContentReady] = useState<boolean>(false);
 
   useEffect(() => {
     const targetDate = new Date("2025-10-16T00:00:00").getTime();
@@ -49,7 +50,14 @@ const Land: React.FC = () => {
   }, []);
 
   const handleAnimationComplete = (): void => {
-    setShowContent(true);
+    // Small delay to ensure smooth transition
+    setTimeout(() => {
+      setContentReady(true);
+      // Another small delay before showing content for smoother effect
+      setTimeout(() => {
+        setShowContent(true);
+      }, 100);
+    }, 300);
   };
 
   return (
@@ -57,30 +65,42 @@ const Land: React.FC = () => {
       {/* Star Canvas Background */}
       <StarCanvas onAnimationComplete={handleAnimationComplete} />
 
-      {/* Content Overlay - Only show after galaxy animation */}
+      {/* Content Overlay - Smooth fade-in after galaxy animation */}
       <div 
-        className={`relative z-10 flex flex-col items-center justify-center w-full h-full px-4 transition-all duration-1500 ease-out ${
-          showContent 
+        className={`relative z-10 flex flex-col items-center justify-center w-full h-full px-4 transition-all duration-2000 ease-out ${
+          showContent && contentReady
             ? 'opacity-100 transform scale-100' 
-            : 'opacity-0 transform scale-0 pointer-events-none'
+            : 'opacity-0 transform scale-95'
         }`}
+        style={{
+          transitionProperty: 'opacity, transform',
+          transitionTimingFunction: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+        }}
       >
         {/* Logo */}
-        <div className="animate-pulse h-80 md:w-[550px] w-[350px] mb-20">
-          <img src={logo} alt="logo" />
+        <div className={`h-80 md:w-[550px] w-[350px] mb-20 transition-all duration-2500 ease-out ${
+          showContent ? 'animate-logo-fade-in' : 'opacity-0 transform translate-y-8'
+        }`}>
+          <img src={logo} alt="logo" className="animate-pulse" />
         </div>
 
         {/* Title */}
-        <h1 className="cinzel-decorative text-xl md:text-2xl lg:text-4xl font-bold text-transparent bg-gradient-to-r from-white via-slate-300 to-white bg-clip-text text-center -mb-12 h-32 animate-fade-in md:-mt-20 -mt-48">
+        <h1 className={`cinzel-decorative text-xl md:text-2xl lg:text-4xl font-bold text-transparent bg-gradient-to-r from-white via-slate-300 to-white bg-clip-text text-center -mb-12 h-32 md:-mt-20 -mt-48 transition-all duration-2000 ease-out ${
+          showContent ? 'animate-title-fade-in' : 'opacity-0 transform translate-y-12'
+        }`}>
          A  modern elegance for timeless traditions
         </h1>
 
-        <p className="cinzel-decorative text-xl md:text-2xl text-gray-300 font-bold mb-12 text-center animate-fade-in-delay">
+        <p className={`cinzel-decorative text-xl md:text-2xl text-gray-300 font-bold mb-12 text-center transition-all duration-2000 ease-out ${
+          showContent ? 'animate-subtitle-fade-in' : 'opacity-0 transform translate-y-8'
+        }`}>
           Website Launching Soon
         </p>
 
         {/* Countdown Timer */}
-        <div className="flex flex-col items-center justify-center mb-8 animate-fade-in-delay mt-5">
+        <div className={`flex flex-col items-center justify-center mb-8 mt-5 transition-all duration-2500 ease-out ${
+          showContent ? 'animate-timer-fade-in' : 'opacity-0 transform translate-y-16'
+        }`}>
           {/* Timer Display with Separators */}
           <div className="flex items-center justify-center text-4xl md:text-6xl lg:text-8xl font-mono font-bold text-white tracking-wider mb-4">
             {/* Days */}
@@ -161,25 +181,58 @@ const Land: React.FC = () => {
       </div>
 
       <style>{`       
-        @keyframes fade-in {
+        @keyframes fade-in-smooth {
           from {
             opacity: 0;
-            transform: scale(0.3);
+            transform: translateY(30px) scale(0.95);
           }
           to {
             opacity: 1;
-            transform: scale(1);
+            transform: translateY(0) scale(1);
           }
         }
 
-        @keyframes scale-up {
+        @keyframes logo-fade-in {
           from {
             opacity: 0;
-            transform: scale(0.1);
+            transform: translateY(40px) scale(0.8);
           }
           to {
             opacity: 1;
-            transform: scale(1);
+            transform: translateY(0) scale(1);
+          }
+        }
+
+        @keyframes title-fade-in {
+          from {
+            opacity: 0;
+            transform: translateY(50px) scale(0.9);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+          }
+        }
+
+        @keyframes subtitle-fade-in {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes timer-fade-in {
+          from {
+            opacity: 0;
+            transform: translateY(60px) scale(0.9);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
           }
         }
 
@@ -193,20 +246,20 @@ const Land: React.FC = () => {
           }
         }
 
-        .animate-fade-in {
-          animation: scale-up 2s cubic-bezier(0.175, 0.885, 0.32, 1.1) 0.2s both;
+        .animate-logo-fade-in {
+          animation: logo-fade-in 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s both;
         }
 
-        .animate-fade-in-delay {
-          animation: scale-up 2s cubic-bezier(0.175, 0.885, 0.32, 1.1) 0.5s both;
+        .animate-title-fade-in {
+          animation: title-fade-in 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.6s both;
         }
 
-        .animate-fade-in-delay-2 {
-          animation: scale-up 2s cubic-bezier(0.175, 0.885, 0.32, 1.1) 0.8s both;
+        .animate-subtitle-fade-in {
+          animation: subtitle-fade-in 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.9s both;
         }
 
-        .animate-fade-in-delay-3 {
-          animation: scale-up 2s cubic-bezier(0.175, 0.885, 0.32, 1.1) 1.1s both;
+        .animate-timer-fade-in {
+          animation: timer-fade-in 2.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.2s both;
         }
 
         .group:hover .animate-glow {
