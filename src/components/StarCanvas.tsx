@@ -159,7 +159,7 @@ const GalacticCore: React.FC<ComponentProps> = ({ progress }) => {
   
   useFrame((state, delta) => {
     if (ref.current) {
-      ref.current.rotation.y += delta * 0.05;
+      ref.current.rotation.y += delta * 0.02;
       
       // Fade out as we zoom in
       (ref.current.material as THREE.PointsMaterial).opacity = Math.max(0, (1 - progress * 1.5) * 0.9);
@@ -196,7 +196,7 @@ const MilkyWayGalaxy: React.FC<ComponentProps> = ({ progress }) => {
   
   useFrame((state, delta) => {
     if (ref.current) {
-      ref.current.rotation.y += delta * 0.08;
+      ref.current.rotation.y += delta * 0.03;
       
       // Fade out as we zoom in
       (ref.current.material as THREE.PointsMaterial).opacity = Math.max(0, 1 - progress * 1.2);
@@ -233,8 +233,8 @@ const StarBackground: React.FC<ComponentProps> = ({ progress }) => {
 
   useFrame((state, delta) => {
     if (ref.current) {
-      ref.current.rotation.x -= delta / 40;
-      ref.current.rotation.y -= delta / 60;
+      ref.current.rotation.x -= delta / 80;
+      ref.current.rotation.y -= delta / 120;
       
       // Fade in as the galaxy fades out
       (ref.current.material as THREE.PointsMaterial).opacity = Math.min(1, progress * 1.5);
@@ -268,7 +268,7 @@ const CameraAnimation: React.FC<CameraAnimationProps> = ({  setProgress, onAnima
   
   useFrame(() => {
     const elapsed = (Date.now() - startTime.current) / 1000;
-    const animationDuration = 6; // 6 seconds total animation
+    const animationDuration = 10;
     
     // Calculate progress (0 to 1)
     const newProgress = Math.min(elapsed / animationDuration, 1);
