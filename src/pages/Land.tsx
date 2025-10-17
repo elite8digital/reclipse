@@ -23,7 +23,7 @@ const Land: React.FC = () => {
   const [contentReady, setContentReady] = useState<boolean>(false);
 
   useEffect(() => {
-    const targetDate = new Date("2025-10-16T00:00:00").getTime();
+    const targetDate = new Date("2025-10-30T00:00:00").getTime();
 
     const updateCountdown = (): void => {
       const now = new Date().getTime();
@@ -285,3 +285,4 @@ const Land: React.FC = () => {
 };
 
 export default Land;
+
